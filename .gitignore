@@ -42,7 +42,8 @@ dlldata.c
 *_p.c
 *_i.h
 *.ilk
-*.meta
+# Restored for unity
+#*.meta
 *.obj
 *.pch
 *.pdb
@@ -194,3 +195,13 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+## Ignore unity library folders, temporary files, and
+## plugins.
+
+unity/Library
+unity/Temp
+unity/*.sln
+unity/*.csproj
+unity/Assets/Plugins
+unity/Assets/Plugins.meta

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD40E6FF-5625-456B-B1FA-97142B3A3A17}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ethos.Tests</RootNamespace>
+    <AssemblyName>Ethos.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ethos.Base\Ethos.Base.csproj">
+      <Project>{a9d41e96-0fba-4346-8216-55662cbe1c4f}</Project>
+      <Name>Ethos.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Client.Console\Ethos.Client.Console.csproj">
+      <Project>{ea7972b5-4851-47a9-9a1d-a31583342b0e}</Project>
+      <Name>Ethos.Client.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Client.Unity\Ethos.Client.Unity.csproj">
+      <Project>{fc0a971b-c080-4481-b98a-2f79b3f9ce0a}</Project>
+      <Name>Ethos.Client.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Client\Ethos.Client.csproj">
+      <Project>{866e39b6-16e9-4166-9161-53fed5a6e81b}</Project>
+      <Name>Ethos.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Data\Ethos.Data.csproj">
+      <Project>{49ca44d9-2ace-46e7-abc2-8b70facb0911}</Project>
+      <Name>Ethos.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Launcher\Ethos.Launcher.csproj">
+      <Project>{6c591c71-eb95-4ac4-83fa-7f74fd8b4b4f}</Project>
+      <Name>Ethos.Launcher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Server.Master\Ethos.Server.Master.csproj">
+      <Project>{e9ea2a6f-11b6-4be6-9c63-bd8988e0a576}</Project>
+      <Name>Ethos.Server.Master</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Server.Region\Ethos.Server.Region.csproj">
+      <Project>{3eeb4336-acc4-4b8f-bacb-4de198a1f265}</Project>
+      <Name>Ethos.Server.Region</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ethos.Server\Ethos.Server.csproj">
+      <Project>{96d912a5-cf26-48e5-9930-7fbd4578deea}</Project>
+      <Name>Ethos.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
