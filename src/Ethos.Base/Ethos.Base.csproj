@@ -38,6 +38,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Operations\IOperationHandler.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationHandler`1.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationHandler`2.cs" />
+    <Compile Include="Infrastructure\Operations\Mapping\OperationMap.cs" />
+    <Compile Include="Infrastructure\Operations\OperationPromise.cs" />
+    <Compile Include="Infrastructure\Operations\OperationProcessor.cs" />
+    <Compile Include="Infrastructure\Operations\Operation`1.cs" />
+    <Compile Include="Infrastructure\Operations\IOperation.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationResponse.cs" />
+    <Compile Include="Infrastructure\Operations\IOperation`1.cs" />
+    <Compile Include="Infrastructure\Operations\Mapping\MappedOperation.cs" />
+    <Compile Include="Infrastructure\INetworkTransport.cs" />
+    <Compile Include="Infrastructure\Operations\OperationCode.cs" />
+    <Compile Include="Infrastructure\Operations\OperationParameterCode.cs" />
+    <Compile Include="Infrastructure\Serialization\ISerializer.cs" />
+    <Compile Include="Operations\SyncOperationsMapOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
