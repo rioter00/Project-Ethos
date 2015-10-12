@@ -4,6 +4,6 @@
     {
         HandleOperation,
         HandleOperationWithResponse,
-        HandleOperationResponse
+        HandleResponse
     }
 }

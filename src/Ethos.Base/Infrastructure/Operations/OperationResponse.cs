@@ -9,6 +9,8 @@ namespace Ethos.Base.Infrastructure.Operations
         [SerializableField]
         private readonly IDictionary<string, IList<string>> _modalErrors;
 
+        public byte PromiseId { get; set; }
+
         public string ModalErrors => string.Join("; ", _modalErrors.Select(r => $"{r.Key}: {string.Join(", ", r.Value.ToArray())}").ToArray());
         public bool IsValid => !_modalErrors.Any();
 

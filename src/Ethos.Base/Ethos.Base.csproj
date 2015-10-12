@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,21 +47,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Operations\ActiveOperationsManager.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`1.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`2.cs" />
     <Compile Include="Infrastructure\Operations\IOperationPromise.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationReader.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationWriter.cs" />
     <Compile Include="Infrastructure\Operations\Mapping\OperationMap.cs" />
-    <Compile Include="Infrastructure\Operations\OperationPromise.cs" />
+    <Compile Include="Infrastructure\Operations\OperationDipatcher.cs" />
     <Compile Include="Infrastructure\Operations\OperationProcessor.cs" />
+    <Compile Include="Infrastructure\Operations\OperationPromise.cs" />
+    <Compile Include="Infrastructure\Operations\Networking\NetworkOperationReader.cs" />
     <Compile Include="Infrastructure\Operations\OperationResponse.cs" />
     <Compile Include="Infrastructure\Operations\IOperation.cs" />
     <Compile Include="Infrastructure\Operations\IOperationResponse.cs" />
     <Compile Include="Infrastructure\Operations\IOperation`1.cs" />
     <Compile Include="Infrastructure\Operations\Mapping\MappedOperation.cs" />
-    <Compile Include="Infrastructure\INetworkTransport.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationTransport.cs" />
     <Compile Include="Infrastructure\Operations\OperationCode.cs" />
     <Compile Include="Infrastructure\Operations\OperationParameterCode.cs" />
+    <Compile Include="Infrastructure\Operations\OperationService.cs" />
+    <Compile Include="Infrastructure\Operations\Networking\NetworkOperationWriter.cs" />
     <Compile Include="Infrastructure\Serialization\BsonSerializer.cs" />
     <Compile Include="Infrastructure\Serialization\ISerializer.cs" />
     <Compile Include="Infrastructure\Serialization\ProtobufSerializer.cs" />

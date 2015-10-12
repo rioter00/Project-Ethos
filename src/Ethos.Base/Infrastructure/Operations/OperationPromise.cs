@@ -7,13 +7,18 @@ namespace Ethos.Base.Infrastructure.Operations
     {
         private readonly IList<Action<TResponse>> _callbacks;
 
+        public byte Id { get; }
         public IOperation Operation { get; }
-        public bool IsCompleted { get; private set; }
 
-        public OperationPromise(IOperation operation)
+        public bool IsCompleted { get; private set; }
+        public IOperationResponse Response { get; private set; }
+
+        public IEnumerable<Action<TResponse>> Callbacks => _callbacks;
+
+        public OperationPromise(byte id, IOperation operation)
         {
+            Id = id;
             Operation = operation;
-            IsCompleted = false;
 
             _callbacks = new List<Action<TResponse>>();
         }
@@ -24,7 +29,6 @@ namespace Ethos.Base.Infrastructure.Operations
                 throw new InvalidOperationException($"Failed to register callback for operation '{GetType()}', the operation has already been completed");
 
             _callbacks.Add(action);
-
             return this;
         }
 
@@ -36,6 +40,7 @@ namespace Ethos.Base.Infrastructure.Operations
             foreach (var callback in _callbacks)
                 callback(response);
 
+            Response = response;
             IsCompleted = true;
         }
     }

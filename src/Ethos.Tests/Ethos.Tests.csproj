@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,10 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BsonSerializerTests.cs" />
-    <Compile Include="Base\OperationMapTests.cs" />
-    <Compile Include="Base\OperationProcessorTests.cs" />
-    <Compile Include="Base\ProtobufSerializerTests.cs" />
+    <Compile Include="Base\Operations\ActiveOperationsManagerTests.cs" />
+    <Compile Include="Base\Operations\OperationPromiseTests.cs" />
+    <Compile Include="Base\Operations\OperationServiceTests.cs" />
+    <Compile Include="Base\Serialization\BsonSerializerTests.cs" />
+    <Compile Include="Base\Operations\OperationMapTests.cs" />
+    <Compile Include="Base\Operations\NetworkOperationReaderTests.cs" />
+    <Compile Include="Base\Operations\NetworkOperationWriterTests.cs" />
+    <Compile Include="Base\Serialization\ProtobufSerializerTests.cs" />
+    <Compile Include="Infrastructure\Base\InMemoryOperationTransport.cs" />
+    <Compile Include="Infrastructure\Base\InMemoryOperationWriter.cs" />
+    <Compile Include="Infrastructure\Base\InMemoryOperationReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

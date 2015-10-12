@@ -4,7 +4,7 @@
     {
         OperationId,
         OperationData,
-        OperationResponseId,
+        OperationPromiseId,
         OperationResponseData
     }
 }

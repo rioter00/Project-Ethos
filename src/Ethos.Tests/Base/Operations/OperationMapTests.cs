@@ -3,7 +3,7 @@ using Ethos.Base.Infrastructure.Operations.Mapping;
 using NUnit.Framework;
 using Shouldly;
 
-namespace Ethos.Tests.Base
+namespace Ethos.Tests.Base.Operations
 {
     [TestFixture]
     public class OperationMapTests

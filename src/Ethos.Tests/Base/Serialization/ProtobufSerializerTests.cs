@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Ethos.Base.Infrastructure.Operations;
 using Ethos.Base.Infrastructure.Serialization;
 using NUnit.Framework;
 using Shouldly;
 
-namespace Ethos.Tests.Base
+namespace Ethos.Tests.Base.Serialization
 {
     [TestFixture]
     public class ProtobufSerializerTests
