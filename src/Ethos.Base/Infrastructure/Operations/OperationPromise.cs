@@ -1,20 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ethos.Base.Infrastructure.Operations
 {
-    public class OperationPromise<TResponse> where TResponse : IOperationResponse
+    public class OperationPromise<TResponse> : IOperationPromise where TResponse : IOperationResponse
     {
-        private readonly IOperation<TResponse> _operation;
+        private readonly IList<Action<TResponse>> _callbacks;
 
-        public OperationPromise(IOperation<TResponse> operation)
+        public IOperation Operation { get; }
+        public bool IsCompleted { get; private set; }
+
+        public OperationPromise(IOperation operation)
         {
-            _operation = operation;
+            Operation = operation;
+            IsCompleted = false;
+
+            _callbacks = new List<Action<TResponse>>();
         }
 
         public OperationPromise<TResponse> Then(Action<TResponse> action)
         {
-            _operation.RegisterCallback(action);
+            if (IsCompleted)
+                throw new InvalidOperationException($"Failed to register callback for operation '{GetType()}', the operation has already been completed");
+
+            _callbacks.Add(action);
+
             return this;
+        }
+
+        public void Complete(TResponse response)
+        {
+            if (IsCompleted)
+                throw new InvalidOperationException($"Failed to complete operation '{GetType()}', the operation may only be completed once");
+
+            foreach (var callback in _callbacks)
+                callback(response);
+
+            IsCompleted = true;
         }
     }
 }

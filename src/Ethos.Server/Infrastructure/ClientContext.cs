@@ -34,7 +34,7 @@ namespace Ethos.Server.Infrastructure
             }
             else if (code == OperationCode.HandleOperationResponse)
             {
-                OperationProcessor.ReadOperationResponse(parameters);
+                OperationProcessor.ReadResponse(parameters);
             }
         }
 

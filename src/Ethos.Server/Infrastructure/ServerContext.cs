@@ -22,7 +22,7 @@ namespace Ethos.Server.Infrastructure
             Container = builder.Build();
 
             OperationMap = new OperationMap();
-            OperationMap.MapOperationsInAssembly(typeof (SyncOperationsMapOperation).Assembly);
+            OperationMap.MapOperationsInAssembly(typeof (AuthenticationOperation).Assembly);
         }
 
         protected abstract void ConfigureContainer(ContainerBuilder builder);

@@ -48,8 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BsonSerializerTests.cs" />
     <Compile Include="Base\OperationMapTests.cs" />
     <Compile Include="Base\OperationProcessorTests.cs" />
+    <Compile Include="Base\ProtobufSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

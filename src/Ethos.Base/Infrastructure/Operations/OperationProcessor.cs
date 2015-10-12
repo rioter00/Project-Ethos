@@ -14,8 +14,10 @@ namespace Ethos.Base.Infrastructure.Operations
         private readonly INetworkTransport _transport;
         private readonly Func<Type, IOperationHandler> _handlerFactory;
 
-        private readonly IDictionary<byte, IOperation> _activeOperations;
+        private readonly IDictionary<byte, IOperationPromise> _activeOperations;
         private byte _nextAvailableResponseId;
+
+        public IEnumerable<IOperation> ActiveOperations => _activeOperations.Values.Select(t => t.Operation);
 
         public OperationProcessor(ISerializer serializer, OperationMap map, INetworkTransport transport, Func<Type, IOperationHandler> handlerFactory)
         {
@@ -25,10 +27,8 @@ namespace Ethos.Base.Infrastructure.Operations
             _transport = transport;
             _handlerFactory = handlerFactory;
 
-            _activeOperations = new Dictionary<byte, IOperation>();
+            _activeOperations = new Dictionary<byte, IOperationPromise>();
             _nextAvailableResponseId = 0;
-
-
         }
 
         public void WriteOperation(IOperation operation)
@@ -49,11 +49,13 @@ namespace Ethos.Base.Infrastructure.Operations
                 [(byte) OperationParameterCode.OperationResponseId] = _nextAvailableResponseId
             });
 
-            _activeOperations.Add(unchecked(_nextAvailableResponseId++), operation);
-            return new OperationPromise<TResponse>(operation);
+            var promise = new OperationPromise<TResponse>(operation);
+            _activeOperations.Add(unchecked (_nextAvailableResponseId++), promise);
+
+            return promise;
         }
 
-        public void WriteOperationResponse(byte operationId, byte responseId, IOperationResponse response)
+        public void WriteResponse(byte operationId, byte responseId, IOperationResponse response)
         {
             _transport.SendOperation(OperationCode.HandleOperationResponse, new Dictionary<byte, object>
             {
@@ -87,16 +89,16 @@ namespace Ethos.Base.Infrastructure.Operations
             var mappedOperation = _map.GetMappedOperation(operationId);
             var operation = _serializer.DeserializeObject(mappedOperation.OperationType, operationData);
 
-            var responseType = mappedOperation.OperationType.GetInterfaces().Single(t => t == typeof (IOperation<>)).GetGenericArguments()[0];
+            var responseType = GetResponseType(mappedOperation.OperationType);
 
             var handlerType = typeof (IOperationHandler<,>).MakeGenericType(mappedOperation.OperationType, responseType);
             var handler = _handlerFactory(handlerType);
 
             var response = (IOperationResponse) handlerType.GetMethod("Handle").Invoke(handler, new[] {operation});
-            WriteOperationResponse(operationId, operationResponseId, response);
+            WriteResponse(operationId, operationResponseId, response);
         }
 
-        public void ReadOperationResponse(IDictionary<byte, object> parameters)
+        public void ReadResponse(IDictionary<byte, object> parameters)
         {
             var operationId = (byte) parameters[(byte) OperationParameterCode.OperationId];
 
@@ -104,16 +106,21 @@ namespace Ethos.Base.Infrastructure.Operations
             var operationResponseData = (byte[]) parameters[(byte) OperationParameterCode.OperationResponseData];
 
             var mappedOperation = _map.GetMappedOperation(operationId);
-            var responseType = mappedOperation.OperationType.GetInterfaces().Single(t => t == typeof (IOperation<>)).GetGenericArguments()[0];
+            var responseType = GetResponseType(mappedOperation.OperationType);
 
-            var response = (IOperationResponse) _serializer.DeserializeObject(responseType, operationResponseData);
+            var response = _serializer.DeserializeObject(responseType, operationResponseData);
 
-            IOperation operation;
-            if (!_activeOperations.TryGetValue(operationResponseId, out operation))
+            IOperationPromise promise;
+            if (!_activeOperations.TryGetValue(operationResponseId, out promise))
                 throw new InvalidOperationException($"Failed to handle event response, no active event exists with id {operationResponseId}");
 
-            ((IOperation<IOperationResponse>) operation).Complete(response);
+            typeof (OperationPromise<>).MakeGenericType(responseType).GetMethod("Complete").Invoke(promise, new[] {response});
             _activeOperations.Remove(operationResponseId);
+        }
+
+        private Type GetResponseType(Type operationType)
+        {
+            return operationType.GetInterfaces().Single(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof (IOperation<>)).GetGenericArguments()[0];
         }
     }
 }

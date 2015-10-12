@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net35\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,10 +49,11 @@
     <Compile Include="Infrastructure\Operations\IOperationHandler.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`1.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`2.cs" />
+    <Compile Include="Infrastructure\Operations\IOperationPromise.cs" />
     <Compile Include="Infrastructure\Operations\Mapping\OperationMap.cs" />
     <Compile Include="Infrastructure\Operations\OperationPromise.cs" />
     <Compile Include="Infrastructure\Operations\OperationProcessor.cs" />
-    <Compile Include="Infrastructure\Operations\Operation`1.cs" />
+    <Compile Include="Infrastructure\Operations\OperationResponse.cs" />
     <Compile Include="Infrastructure\Operations\IOperation.cs" />
     <Compile Include="Infrastructure\Operations\IOperationResponse.cs" />
     <Compile Include="Infrastructure\Operations\IOperation`1.cs" />
@@ -52,9 +61,15 @@
     <Compile Include="Infrastructure\INetworkTransport.cs" />
     <Compile Include="Infrastructure\Operations\OperationCode.cs" />
     <Compile Include="Infrastructure\Operations\OperationParameterCode.cs" />
+    <Compile Include="Infrastructure\Serialization\BsonSerializer.cs" />
     <Compile Include="Infrastructure\Serialization\ISerializer.cs" />
-    <Compile Include="Operations\SyncOperationsMapOperation.cs" />
+    <Compile Include="Infrastructure\Serialization\ProtobufSerializer.cs" />
+    <Compile Include="Infrastructure\Serialization\SerializableFieldAttribute.cs" />
+    <Compile Include="Operations\AuthenticationOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
