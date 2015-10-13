@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Ethos.Base.Infrastructure.Extensions;
 using Ethos.Base.Infrastructure.Operations.Mapping;
 using Ethos.Base.Infrastructure.Serialization;
 
@@ -34,7 +35,7 @@ namespace Ethos.Base.Infrastructure.Operations.Networking
             var operationResponseData = (byte[]) parameters[(byte) OperationParameterCode.OperationResponseData];
 
             var mappedOperation = _map.GetMappedOperation(operationId);
-            var responseType = OperationService.GetResponseType(mappedOperation.OperationType);
+            var responseType = mappedOperation.OperationType.GetResponseType();
 
             return (IOperationResponse) _serializer.DeserializeObject(responseType, operationResponseData);
         }

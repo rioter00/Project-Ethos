@@ -64,12 +64,6 @@ namespace Ethos.Tests.Base.Operations
         }
 
         [Test]
-        public void ShouldGetResponseType()
-        {
-            OperationService.GetResponseType(typeof (TestOperationWithResponse)).ShouldBe(typeof (TestResponse));
-        }
-
-        [Test]
         public void ShouldHandleOperation()
         {
             var handler = new TestOperationHandler();

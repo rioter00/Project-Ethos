@@ -1,4 +1,5 @@
-﻿using Ethos.Base.Infrastructure.Operations;
+﻿using System;
+using Ethos.Base.Infrastructure.Operations;
 using Ethos.Base.Infrastructure.Operations.Mapping;
 using NUnit.Framework;
 using Shouldly;
@@ -13,33 +14,55 @@ namespace Ethos.Tests.Base.Operations
         }
 
         [Test]
-        public void ShouldMapEvents()
+        public void ShouldMapOperations()
         {
-            var sut = new OperationMap();
+            var map = new OperationMap();
 
-            var mappedOperation = sut.MapOperation(typeof (TestOperation));
-
+            var mappedOperation = map.MapOperation(typeof (TestOperation));
             mappedOperation.OperationType.ShouldBe(typeof (TestOperation));
         }
 
         [Test]
-        public void ShouldRetrieveEventById()
+        public void ShouldRetrieveOperationById()
         {
-            var sut = new OperationMap();
+            var map = new OperationMap();
 
-            var mappedOperation = sut.MapOperation(typeof (TestOperation));
-
-            sut.GetMappedOperation(mappedOperation.Id).ShouldBe(mappedOperation);
+            var mappedOperation = map.MapOperation(typeof (TestOperation));
+            map.GetMappedOperation(mappedOperation.Id).ShouldBe(mappedOperation);
         }
 
         [Test]
-        public void ShouldRetrieveEventByType()
+        public void ShouldRetrieveOperationByType()
         {
-            var sut = new OperationMap();
+            var map = new OperationMap();
 
-            var mappedOperation = sut.MapOperation(typeof (TestOperation));
+            var mappedOperation = map.MapOperation(typeof (TestOperation));
+            map.GetMappedOperation(mappedOperation.OperationType).ShouldBe(mappedOperation);
+        }
 
-            sut.GetMappedOperation(mappedOperation.OperationType).ShouldBe(mappedOperation);
+        [Test]
+        public void ShouldSucceedInTryingToFindOperationByName()
+        {
+            var map = new OperationMap();
+            var mappedOperation = map.MapOperation(typeof (TestOperation));
+
+            Type foundType;
+            var success = map.TryGetMappedOperation("TestOperation", out foundType);
+
+            success.ShouldBeTrue();
+            foundType.ShouldBe(mappedOperation.OperationType);
+        }
+
+        [Test]
+        public void ShouldFailInTryingToFindOperationByName()
+        {
+            var map = new OperationMap();
+
+            Type foundType;
+            var success = map.TryGetMappedOperation("InvalidOperationType", out foundType);
+
+            success.ShouldBeFalse();
+            foundType.ShouldBeNull();
         }
     }
 }

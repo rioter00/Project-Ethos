@@ -4,6 +4,6 @@ namespace Ethos.Base.Infrastructure.Operations
 {
     public interface IOperationTransport
     {
-        void SendOperation(OperationCode code, IDictionary<byte, object> parameters);
+        void SendOperation(OperationCode code, Dictionary<byte, object> parameters);
     }
 }

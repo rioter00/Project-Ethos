@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Base\Operations\ActiveOperationsManagerTests.cs" />
     <Compile Include="Base\Operations\OperationPromiseTests.cs" />
+    <Compile Include="Base\Operations\OperationReflectionExtensionsTests.cs" />
     <Compile Include="Base\Operations\OperationServiceTests.cs" />
     <Compile Include="Base\Serialization\BsonSerializerTests.cs" />
     <Compile Include="Base\Operations\OperationMapTests.cs" />
@@ -101,6 +102,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,11 +1,11 @@
 ﻿namespace Ethos.Base.Infrastructure.Operations
 {
-    public class OperationDipatcher
+    public class OperationDispatcher
     {
         private readonly ActiveOperationsManager _activeOperations;
         private readonly IOperationWriter _writer;
 
-        public OperationDipatcher(ActiveOperationsManager activeOperations, IOperationWriter writer)
+        public OperationDispatcher(ActiveOperationsManager activeOperations, IOperationWriter writer)
         {
             _activeOperations = activeOperations;
             _writer = writer;

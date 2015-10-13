@@ -2,6 +2,8 @@
 {
     public enum OperationParameterCode : byte
     {
+        ContextType,
+        OperationMapData,
         OperationId,
         OperationData,
         OperationPromiseId,

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.Mapping;
+using Ethos.Base.Operations;
 using ProtoBuf;
 using ProtoBuf.Meta;
 
@@ -14,6 +16,12 @@ namespace Ethos.Base.Infrastructure.Serialization
         private static IList<Type> _registeredTypes;
 
         public static IList<Type> RegisteredTypes => _registeredTypes ?? (_registeredTypes = new List<Type>());
+
+        public ProtobufSerializer()
+        {
+            RegisterOperations(typeof (AuthenticationOperation).Assembly);
+            RegisterTypes(new[] {typeof (MappedOperation)});
+        }
 
         public byte[] SerializeObject(object value)
         {

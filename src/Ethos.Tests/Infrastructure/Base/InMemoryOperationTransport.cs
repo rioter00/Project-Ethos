@@ -15,7 +15,7 @@ namespace Ethos.Tests.Infrastructure.Base
             _sentOperations = new List<Tuple<OperationCode, IDictionary<byte, object>>>();
         }
 
-        public void SendOperation(OperationCode code, IDictionary<byte, object> parameters)
+        public void SendOperation(OperationCode code, Dictionary<byte, object> parameters)
         {
             _sentOperations.Add(new Tuple<OperationCode, IDictionary<byte, object>>(code, parameters));
         }

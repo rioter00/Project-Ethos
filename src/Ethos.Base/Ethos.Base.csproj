@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\ContextType.cs" />
+    <Compile Include="Infrastructure\Extensions\OperationReflectionExtensions.cs" />
     <Compile Include="Infrastructure\Operations\ActiveOperationsManager.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`1.cs" />
@@ -55,7 +57,8 @@
     <Compile Include="Infrastructure\Operations\IOperationReader.cs" />
     <Compile Include="Infrastructure\Operations\IOperationWriter.cs" />
     <Compile Include="Infrastructure\Operations\Mapping\OperationMap.cs" />
-    <Compile Include="Infrastructure\Operations\OperationDipatcher.cs" />
+    <Compile Include="Infrastructure\Operations\Mapping\OperationMapBinaryFormatter.cs" />
+    <Compile Include="Infrastructure\Operations\OperationDispatcher.cs" />
     <Compile Include="Infrastructure\Operations\OperationProcessor.cs" />
     <Compile Include="Infrastructure\Operations\OperationPromise.cs" />
     <Compile Include="Infrastructure\Operations\Networking\NetworkOperationReader.cs" />

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using Ethos.Base.Infrastructure.Extensions;
 
 namespace Ethos.Base.Infrastructure.Operations
 {
@@ -28,7 +28,7 @@ namespace Ethos.Base.Infrastructure.Operations
 
         public void HandleOperationWithResponse(IOperation operation, byte promiseId)
         {
-            var responseType = GetResponseType(operation.GetType());
+            var responseType = operation.GetType().GetResponseType();
 
             var handlerType = typeof (IOperationHandler<,>).MakeGenericType(operation.GetType(), responseType);
             var handler = _handlerFactory(handlerType);
@@ -43,11 +43,6 @@ namespace Ethos.Base.Infrastructure.Operations
         {
             var promise = _activeOperations.RetrieveAndRemoveOperation(response.PromiseId);
             typeof (OperationPromise<>).MakeGenericType(response.GetType()).GetMethod("Complete").Invoke(promise, new object[] {response});
-        }
-
-        public static Type GetResponseType(Type operationType)
-        {
-            return operationType.GetInterfaces().Single(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof (IOperation<>)).GetGenericArguments()[0];
         }
     }
 }

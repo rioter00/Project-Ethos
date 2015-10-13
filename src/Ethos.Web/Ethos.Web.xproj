@@ -16,8 +16,6 @@
     <DevelopmentServerPort>52620</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ethos.Base\Ethos.Base.csproj" />
-    <ProjectReference Include="..\Ethos.Data\Ethos.Data.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
