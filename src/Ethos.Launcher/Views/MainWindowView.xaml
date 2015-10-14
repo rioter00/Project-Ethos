@@ -1,0 +1,70 @@
+﻿<Window x:Class="Ethos.Launcher.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Ethos.Launcher.Views"
+        xmlns:viewmodels="clr-namespace:Ethos.Launcher.ViewModels"
+        mc:Ignorable="d"
+        Title="Ethos Launcher" Height="600" Width="900">
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
+            <views:AccountView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+            <views:HomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:PvPViewModel}">
+            <views:PvPView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:StoreViewModel}">
+            <views:StoreView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:WorldViewModel}">
+            <views:WorldView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="Navigation"
+              Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button Content="Home"
+                Command="{Binding NavigationCommand}"
+                CommandParameter="home"
+                Grid.Row="0" />
+            <Button Content="PvP"
+                Command="{Binding NavigationCommand}"
+                CommandParameter="pvp"
+                Grid.Row="1" />
+            <Button Content="World"
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="world"
+                    Grid.Row="2" />
+            <Button Content="Store"
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="store"
+                    Grid.Row="3" />
+            <Button Content="Account"
+                    Command="{Binding NavigationCommand}"
+                    CommandParameter="account"
+                    Grid.Row="4" />
+        </Grid>
+        <Grid x:Name="MainContent"
+              Grid.Column="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Grid>
+</Window>

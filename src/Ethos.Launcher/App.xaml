@@ -1,8 +1,7 @@
 ﻿<Application x:Class="Ethos.Launcher.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Ethos.Launcher"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Views/MainWindowView.xaml">
     <Application.Resources>
          
     </Application.Resources>
