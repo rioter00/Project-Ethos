@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\ClientContext.cs" />
+    <Compile Include="Infrastructure\ClientContextBase.cs" />
     <Compile Include="Infrastructure\IClientTransport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

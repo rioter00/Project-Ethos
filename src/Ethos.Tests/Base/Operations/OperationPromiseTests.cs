@@ -14,7 +14,7 @@ namespace Ethos.Tests.Base.Operations
         {
         }
 
-        class TestResponse : OperationResponse
+        class TestResponse : OperationResponseBase
         {
             public int MethodInvokeCount { get; private set; }
 

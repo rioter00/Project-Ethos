@@ -31,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net35\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -47,41 +54,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Components\ComponentMap.cs" />
+    <Compile Include="Infrastructure\Components\IComponent.cs" />
+    <Compile Include="Infrastructure\Components\MappedComponent.cs" />
+    <Compile Include="Infrastructure\Components\MappedMethod.cs" />
     <Compile Include="Infrastructure\ContextType.cs" />
-    <Compile Include="Infrastructure\Extensions\OperationReflectionExtensions.cs" />
-    <Compile Include="Infrastructure\Operations\ActiveOperationsManager.cs" />
+    <Compile Include="Infrastructure\Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Infrastructure\Operations\OperationHandlerFactory.cs" />
+    <Compile Include="Infrastructure\Operations\System\ActiveOperationsManager.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`1.cs" />
     <Compile Include="Infrastructure\Operations\IOperationHandler`2.cs" />
     <Compile Include="Infrastructure\Operations\IOperationPromise.cs" />
-    <Compile Include="Infrastructure\Operations\IOperationReader.cs" />
-    <Compile Include="Infrastructure\Operations\IOperationWriter.cs" />
-    <Compile Include="Infrastructure\Operations\Mapping\OperationMap.cs" />
-    <Compile Include="Infrastructure\Operations\Mapping\OperationMapBinaryFormatter.cs" />
-    <Compile Include="Infrastructure\Operations\OperationDispatcher.cs" />
-    <Compile Include="Infrastructure\Operations\OperationProcessor.cs" />
+    <Compile Include="Infrastructure\Operations\System\IOperationReader.cs" />
+    <Compile Include="Infrastructure\Operations\System\IOperationWriter.cs" />
+    <Compile Include="Infrastructure\Operations\System\Mapping\OperationMap.cs" />
+    <Compile Include="Infrastructure\Operations\System\OperationDispatcher.cs" />
+    <Compile Include="Infrastructure\Operations\System\OperationProcessor.cs" />
     <Compile Include="Infrastructure\Operations\OperationPromise.cs" />
-    <Compile Include="Infrastructure\Operations\Networking\NetworkOperationReader.cs" />
-    <Compile Include="Infrastructure\Operations\OperationResponse.cs" />
+    <Compile Include="Infrastructure\Operations\System\Networking\NetworkOperationReader.cs" />
+    <Compile Include="Infrastructure\Operations\OperationResponseBase.cs" />
     <Compile Include="Infrastructure\Operations\IOperation.cs" />
     <Compile Include="Infrastructure\Operations\IOperationResponse.cs" />
     <Compile Include="Infrastructure\Operations\IOperation`1.cs" />
-    <Compile Include="Infrastructure\Operations\Mapping\MappedOperation.cs" />
-    <Compile Include="Infrastructure\Operations\IOperationTransport.cs" />
-    <Compile Include="Infrastructure\Operations\OperationCode.cs" />
-    <Compile Include="Infrastructure\Operations\OperationParameterCode.cs" />
-    <Compile Include="Infrastructure\Operations\OperationService.cs" />
-    <Compile Include="Infrastructure\Operations\Networking\NetworkOperationWriter.cs" />
-    <Compile Include="Infrastructure\Serialization\BsonSerializer.cs" />
+    <Compile Include="Infrastructure\Operations\System\Mapping\MappedOperation.cs" />
+    <Compile Include="Infrastructure\Operations\System\Networking\IOperationTransport.cs" />
+    <Compile Include="Infrastructure\Operations\System\Networking\OperationCode.cs" />
+    <Compile Include="Infrastructure\Operations\System\Networking\OperationParameterCode.cs" />
+    <Compile Include="Infrastructure\Operations\System\OperationService.cs" />
+    <Compile Include="Infrastructure\Operations\System\Networking\NetworkOperationWriter.cs" />
+    <Compile Include="Infrastructure\Operations\System\OperationSystem.cs" />
+    <Compile Include="Infrastructure\Serialization\BinarySerializer.cs" />
+    <Compile Include="Infrastructure\Serialization\ICustomSerializer.cs" />
+    <Compile Include="Infrastructure\Serialization\ISerializationService.cs" />
     <Compile Include="Infrastructure\Serialization\ISerializer.cs" />
-    <Compile Include="Infrastructure\Serialization\ProtobufSerializer.cs" />
-    <Compile Include="Infrastructure\Serialization\SerializableFieldAttribute.cs" />
-    <Compile Include="Operations\AuthenticationOperation.cs" />
+    <Compile Include="Infrastructure\Serialization\SerializationService.cs" />
+    <Compile Include="Infrastructure\Systems\ISystem.cs" />
+    <Compile Include="Infrastructure\Systems\ISystem`2.cs" />
+    <Compile Include="Operations\CreateComponentOperation.cs" />
+    <Compile Include="Operations\DestroyComponentOperation.cs" />
+    <Compile Include="Operations\InvokeComponentOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

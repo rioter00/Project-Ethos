@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using Ethos.Base.Infrastructure;
 using Ethos.Base.Infrastructure.Operations;
-using Ethos.Base.Infrastructure.Operations.Mapping;
-using Ethos.Base.Infrastructure.Operations.Networking;
+using Ethos.Base.Infrastructure.Operations.System.Mapping;
+using Ethos.Base.Infrastructure.Operations.System.Networking;
 using Ethos.Base.Infrastructure.Serialization;
 using Ethos.Tests.Infrastructure.Base;
 using NUnit.Framework;
@@ -12,8 +13,6 @@ namespace Ethos.Tests.Base.Operations
     [TestFixture]
     public class NetworkOperationWriterTests
     {
-        #region Mocking
-
         class TestOperation : IOperation
         {
         }
@@ -22,15 +21,11 @@ namespace Ethos.Tests.Base.Operations
         {
         }
 
-        class TestResponse : OperationResponse
+        class TestResponse : OperationResponseBase
         {
         }
 
-        #endregion
-
         private OperationMap _map;
-        private ProtobufSerializer _serializer;
-
         private InMemoryOperationTransport _transport;
 
         [TestFixtureSetUp]
@@ -39,15 +34,6 @@ namespace Ethos.Tests.Base.Operations
             _map = new OperationMap();
             _map.MapOperation(typeof (TestOperation));
             _map.MapOperation(typeof (TestOperationWithResponse));
-
-            _serializer = new ProtobufSerializer();
-            _serializer.RegisterTypes(new[]
-            {
-                typeof (TestOperation),
-                typeof (TestOperationWithResponse),
-                typeof (OperationResponse),
-                typeof (TestResponse)
-            });
         }
 
         [SetUp]
@@ -57,9 +43,22 @@ namespace Ethos.Tests.Base.Operations
         }
 
         [Test]
+        public void ShouldWriteContextInitialization()
+        {
+            var writer = new NetworkOperationWriter(_map, new SerializationService(new BinarySerializer()), _transport);
+            writer.WriteContextInitialization(ContextType.InstanceServer);
+
+            var sentOperation = _transport.SentOperations.SingleOrDefault();
+            sentOperation.ShouldNotBeNull();
+
+            sentOperation.Item1.ShouldBe(OperationCode.SetupContext);
+            sentOperation.Item2.ShouldContainKeyAndValue((byte) OperationParameterCode.ContextType, ContextType.InstanceServer);
+        }
+
+        [Test]
         public void ShouldWriteOperation()
         {
-            var writer = new NetworkOperationWriter(_map, _serializer, _transport);
+            var writer = new NetworkOperationWriter(_map, new SerializationService(new BinarySerializer()), _transport);
             writer.WriteOperation(new TestOperation());
 
             var sentOperation = _transport.SentOperations.SingleOrDefault();
@@ -74,7 +73,7 @@ namespace Ethos.Tests.Base.Operations
         [Test]
         public void ShouldWriteOperationWithResponse()
         {
-            var writer = new NetworkOperationWriter(_map, _serializer, _transport);
+            var writer = new NetworkOperationWriter(_map, new SerializationService(new BinarySerializer()), _transport);
 
             var promise = new OperationPromise<TestResponse>(0, new TestOperationWithResponse());
             writer.WriteOperationWithResponse(promise);
@@ -93,7 +92,7 @@ namespace Ethos.Tests.Base.Operations
         [Test]
         public void ShouldWriteResponse()
         {
-            var writer = new NetworkOperationWriter(_map, _serializer, _transport);
+            var writer = new NetworkOperationWriter(_map, new SerializationService(new BinarySerializer()), _transport);
             writer.WriteResponse(new TestOperationWithResponse(), new TestResponse());
 
             var sentOperation = _transport.SentOperations.SingleOrDefault();

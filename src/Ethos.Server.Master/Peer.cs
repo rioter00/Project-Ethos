@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ethos.Base.Infrastructure;
-using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.System.Networking;
 using Ethos.Server.Infrastructure;
 using Photon.SocketServer;
 using PhotonHostRuntimeInterfaces;
@@ -11,7 +11,7 @@ namespace Ethos.Server.Master
     public class Peer : PeerBase, IServerTransport
     {
         private readonly MasterServerContext _application;
-        private ClientContext _context;
+        private ClientContextBase _context;
 
         public Peer(InitRequest initRequest, MasterServerContext application) : base(initRequest)
         {
@@ -34,8 +34,14 @@ namespace Ethos.Server.Master
 
                 var contextType = (ContextType) operationRequest.Parameters[(byte) OperationParameterCode.ContextType];
 
-                if (contextType == ContextType.PlayerClient)
+                if (contextType == ContextType.InstanceServer)
+                    _context = new InstanceClientContext(_application, this);
+                else if (contextType == ContextType.RegionServer)
+                    _context = new RegionClientContext(_application, this);
+                else if (contextType == ContextType.PlayerClient)
                     _context = new PlayerClientContext(_application, this);
+                else if (contextType == ContextType.ConsoleClient)
+                    _context = new ConsoleClientContext(_application, this);
                 else
                     throw new ArgumentException($"Failed setup context type '{contextType}', the context type was not recognized");
 
@@ -47,7 +53,7 @@ namespace Ethos.Server.Master
 
         protected override void OnDisconnect(DisconnectReason reasonCode, string reasonDetail)
         {
-            _context?.OnDisconnect();
+            _context?.Dispose();
         }
     }
 }

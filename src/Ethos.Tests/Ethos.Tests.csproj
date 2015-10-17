@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -49,15 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\Components\ComponentMapTests.cs" />
+    <Compile Include="Base\Components\MappedComponentTests.cs" />
+    <Compile Include="Base\Extensions\ReflectionTests.cs" />
     <Compile Include="Base\Operations\ActiveOperationsManagerTests.cs" />
     <Compile Include="Base\Operations\OperationPromiseTests.cs" />
-    <Compile Include="Base\Operations\OperationReflectionExtensionsTests.cs" />
     <Compile Include="Base\Operations\OperationServiceTests.cs" />
-    <Compile Include="Base\Serialization\BsonSerializerTests.cs" />
     <Compile Include="Base\Operations\OperationMapTests.cs" />
     <Compile Include="Base\Operations\NetworkOperationReaderTests.cs" />
     <Compile Include="Base\Operations\NetworkOperationWriterTests.cs" />
-    <Compile Include="Base\Serialization\ProtobufSerializerTests.cs" />
+    <Compile Include="Base\Serialization\BinarySerializerTests.cs" />
+    <Compile Include="Base\Serialization\SerializationServiceTests.cs" />
+    <Compile Include="Server\Systems\SystemTests.cs" />
     <Compile Include="Infrastructure\Base\InMemoryOperationTransport.cs" />
     <Compile Include="Infrastructure\Base\InMemoryOperationWriter.cs" />
     <Compile Include="Infrastructure\Base\InMemoryOperationReader.cs" />

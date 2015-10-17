@@ -10,7 +10,7 @@ namespace Ethos.Client.Console
 
         private Program()
         {
-            Context = new ConsoleClientContext(new ProtobufSerializer(), new ConsoleClientTransport(this));
+            Context = new ConsoleClientContext(new BinarySerializer(), new ConsoleClientTransport(this));
         }
 
         private static void Main()

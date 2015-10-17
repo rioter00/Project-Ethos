@@ -1,4 +1,5 @@
 ﻿using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.System;
 using Ethos.Tests.Infrastructure.Base;
 using NUnit.Framework;
 using Shouldly;
@@ -18,7 +19,7 @@ namespace Ethos.Tests.Base.Operations
         {
         }
 
-        class TestResponse : OperationResponse
+        class TestResponse : OperationResponseBase
         {
         }
 

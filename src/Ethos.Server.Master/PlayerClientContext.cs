@@ -2,9 +2,9 @@
 
 namespace Ethos.Server.Master
 {
-    public class PlayerClientContext : ClientContext
+    public class PlayerClientContext : ClientContextBase
     {
-        public PlayerClientContext(ServerContext application, IServerTransport transport) : base(application, transport)
+        public PlayerClientContext(ServerContextBase application, IServerTransport transport) : base(application, transport)
         {
         }
     }

@@ -5,7 +5,7 @@ using Ethos.Server.Infrastructure;
 
 namespace Ethos.Server.Master
 {
-    public class MasterServerContext : ServerContext
+    public class MasterServerContext : ServerContextBase
     {
         public MasterServerContext(ISerializer serializer) : base(serializer)
         {

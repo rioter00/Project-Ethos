@@ -2,6 +2,9 @@
 {
     public enum ContextType : byte
     {
-        PlayerClient
+        InstanceServer,
+        RegionServer,
+        PlayerClient,
+        ConsoleClient
     }
 }

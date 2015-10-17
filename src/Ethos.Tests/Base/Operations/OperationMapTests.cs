@@ -1,6 +1,6 @@
 ﻿using System;
 using Ethos.Base.Infrastructure.Operations;
-using Ethos.Base.Infrastructure.Operations.Mapping;
+using Ethos.Base.Infrastructure.Operations.System.Mapping;
 using NUnit.Framework;
 using Shouldly;
 

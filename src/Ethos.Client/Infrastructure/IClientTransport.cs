@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.System.Networking;
 
 namespace Ethos.Client.Infrastructure
 {

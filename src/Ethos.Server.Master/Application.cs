@@ -27,7 +27,7 @@ namespace Ethos.Server.Master
             else
                 BasicConfigurator.Configure();
 
-            _application = new MasterServerContext(new ProtobufSerializer());
+            _application = new MasterServerContext(new BinarySerializer());
             _application.Setup();
 
             Log.Info("Application Started!");

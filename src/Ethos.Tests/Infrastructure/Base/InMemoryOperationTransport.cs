@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.System.Networking;
 
 namespace Ethos.Tests.Infrastructure.Base
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.System.Networking;
 using Ethos.Client.Infrastructure;
 using ExitGames.Client.Photon;
 using OperationResponse = ExitGames.Client.Photon.OperationResponse;
@@ -55,7 +55,7 @@ namespace Ethos.Client.Console
             if (statusCode == StatusCode.Connect)
                 _program.Context.OnConnect();
             if (statusCode == StatusCode.Disconnect)
-                _program.Context.OnDisconnect();
+                _program.Context.Dispose();
 
             Console.WriteColor($"Network status changed: {statusCode}", ConsoleColor.Cyan);
         }

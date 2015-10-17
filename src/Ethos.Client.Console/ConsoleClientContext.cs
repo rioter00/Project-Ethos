@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Ethos.Base.Infrastructure;
-using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Extensions;
 using Ethos.Base.Infrastructure.Serialization;
-using Ethos.Base.Operations;
 using Ethos.Client.Infrastructure;
 
 namespace Ethos.Client.Console
 {
-    public class ConsoleClientContext : ClientContext
+    public class ConsoleClientContext : ClientContextBase
     {
         private volatile bool _isRunning;
 
@@ -19,12 +17,16 @@ namespace Ethos.Client.Console
         {
         }
 
+        protected override void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(typeof (ConsoleClientContext).Assembly)
+                .Where(t => t.IsOperationHandler())
+                .As(t => t.GetHandlerInterfaceType());
+        }
+
         public override void OnConnect()
         {
-            Transport.SendOperation(OperationCode.SetupContext, new Dictionary<byte, object>
-            {
-                [(byte) OperationParameterCode.ContextType] = ContextType.PlayerClient
-            });
+            OperationSystem.Dispatcher.InitializeContext(ContextType.ConsoleClient);
         }
 
         public void Run()
@@ -51,19 +53,19 @@ namespace Ethos.Client.Console
                 }
                 else if (input == "send AuthenticationOperation")
                 {
-                    OperationDispatcher.Dispatch(new AuthenticationOperation {Token = "2C1A506F-F21B-4978-B63E-1EEEC9D776A7" })
-                        .Then(t =>
-                        {
-                            if (!t.IsValid)
-                            {
-                                Console.WriteColor($"Failed to authenticate with the server, {t.ModalErrors}", ConsoleColor.Red);
-                                return;
-                            }
-
-                            Console.WriteColor("Successfully authenticated with the server!", ConsoleColor.Green);
-                        });
-
-                    Console.WriteColor("Successfully sent authentication request", ConsoleColor.Cyan);
+//                    OperationSystem.Dispatcher.DispatchOperation(new AuthenticationOperation {Token = "2C1A506F-F21B-4978-B63E-1EEEC9D776A7"})
+//                        .Then(t =>
+//                        {
+//                            if (!t.IsValid)
+//                            {
+//                                Console.WriteColor($"Failed to authenticate with the server, {t.ModalErrors}", ConsoleColor.Red);
+//                                return;
+//                            }
+//
+//                            Console.WriteColor("Successfully authenticated with the server!", ConsoleColor.Green);
+//                        });
+//
+//                    Console.WriteColor("Successfully sent authentication request", ConsoleColor.Cyan);
                 }
                 else if (input == "exit")
                 {
@@ -74,10 +76,6 @@ namespace Ethos.Client.Console
                     Console.WriteColor($"'{input}' was not recognized", ConsoleColor.Red);
                 }
             }
-        }
-
-        protected override void ConfigureContainer(ContainerBuilder builder)
-        {
         }
     }
 }

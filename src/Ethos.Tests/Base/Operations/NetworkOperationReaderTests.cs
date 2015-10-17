@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Ethos.Base.Infrastructure.Operations;
-using Ethos.Base.Infrastructure.Operations.Mapping;
-using Ethos.Base.Infrastructure.Operations.Networking;
+using Ethos.Base.Infrastructure.Operations.System.Mapping;
+using Ethos.Base.Infrastructure.Operations.System.Networking;
 using Ethos.Base.Infrastructure.Serialization;
 using Ethos.Tests.Infrastructure.Base;
 using NUnit.Framework;
@@ -12,8 +12,6 @@ namespace Ethos.Tests.Base.Operations
     [TestFixture]
     public class NetworkOperationReaderTests
     {
-        #region Mocking
-
         class TestOperation : IOperation
         {
             public string Data { get; set; }
@@ -24,15 +22,13 @@ namespace Ethos.Tests.Base.Operations
             public string Data { get; set; }
         }
 
-        class TestResponse : OperationResponse
+        class TestResponse : OperationResponseBase
         {
             public string Data { get; set; }
         }
 
-        #endregion
-
         private OperationMap _map;
-        private ProtobufSerializer _serializer;
+        private SerializationService _serializer;
 
         private InMemoryOperationTransport _transport;
 
@@ -40,17 +36,11 @@ namespace Ethos.Tests.Base.Operations
         public void SetupFixture()
         {
             _map = new OperationMap();
+
             _map.MapOperation(typeof (TestOperation));
             _map.MapOperation(typeof (TestOperationWithResponse));
 
-            _serializer = new ProtobufSerializer();
-            _serializer.RegisterTypes(new[]
-            {
-                typeof (TestOperation),
-                typeof (TestOperationWithResponse),
-                typeof (OperationResponse),
-                typeof (TestResponse)
-            });
+            _serializer = new SerializationService(new BinarySerializer());
         }
 
         [SetUp]

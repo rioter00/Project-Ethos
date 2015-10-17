@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ethos.Base.Infrastructure.Operations;
+using Ethos.Base.Infrastructure.Operations.System;
+using Ethos.Base.Infrastructure.Operations.System.Mapping;
 
 namespace Ethos.Tests.Infrastructure.Base
 {
@@ -11,6 +13,11 @@ namespace Ethos.Tests.Infrastructure.Base
         }
 
         public byte ReadPromiseId(IDictionary<byte, object> parameters)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<MappedOperation> ReadMappedOperations(IDictionary<byte, object> parameters)
         {
             throw new System.NotImplementedException();
         }

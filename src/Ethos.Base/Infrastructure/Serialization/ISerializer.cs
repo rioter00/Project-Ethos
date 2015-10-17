@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 
 namespace Ethos.Base.Infrastructure.Serialization
 {
     public interface ISerializer
     {
-        byte[] SerializeObject(object value);
-        object DeserializeObject(Type type, byte[] data);
+        void WriteObject(BinaryWriter writer, Type type, object value);
+        object ReadObject(BinaryReader reader, Type type);
     }
 }
